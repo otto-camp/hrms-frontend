@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import CandidateService from "../services/CandidateService";
-import { Table, Button } from "semantic-ui-react";
+import { Table } from "semantic-ui-react";
 
 export default function CandidateList() {
   const [candidates, setcandidates] = useState([]);

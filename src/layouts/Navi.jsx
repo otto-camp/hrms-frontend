@@ -4,7 +4,7 @@ import { Button, Menu } from "semantic-ui-react";
 export default function Navi() {
   return (
     <div>
-      <Menu size="large">
+      <Menu size="large" >
         <Menu.Item name="home" />
         <Menu.Item name="messages" />
 

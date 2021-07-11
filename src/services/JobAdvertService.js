@@ -1,8 +1,11 @@
 import axios from 'axios'
 
-export default class JodAdvertService {
+export default class JobAdvertService {
     getJobAdverts()
     {
-        return axios.get("http://localhost:8080/api/job-adverts/getAll")
+        return axios.get("http://localhost:8080/api/job-adverts/getAll");
+    }
+    add(values){
+        return axios.get("http://localhost:8080/api/job-adverts/add",values);
     }
 }
