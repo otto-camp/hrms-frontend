@@ -6,7 +6,7 @@ import { Container } from 'semantic-ui-react';
 
 function App() {
   return (
-    <div className="App" style={{ backgroundColor: "#006666" }}>
+    <div className="App" >
       <Navi />
       <Container className="main" >
         <Dashboard />
