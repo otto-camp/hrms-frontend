@@ -1,5 +1,5 @@
 import React from "react";
-import { Item, Label, Button } from "semantic-ui-react";
+import { Item, Label, Button,Image } from "semantic-ui-react";
 
 export default function JobAdvertItem({
   jobAdvert,
@@ -9,18 +9,20 @@ export default function JobAdvertItem({
 }) {
   return (
     <div>
-      <Item key={jobAdvert.id} >
-        <Item.Image src="https://res.cloudinary.com/hrms-java/image/upload/v1623238990/samples/landscapes/architecture-signs.jpg" size="medium" rounded/>
-        <Item.Content verticalAlign="middle" >
+      <Item.Group key={jobAdvert.id} relaxed >
+        <Item.Meta>
+          <Image src="https://res.cloudinary.com/hrms-java/image/upload/v1623238990/samples/landscapes/architecture-signs.jpg" size="medium" />
+        </Item.Meta>
+        <Item.Content verticalAlign="middle">
           <Item.Header
-            style={{ width: "100%", textAlign: "left", marginBottom: "0.5em" }}
+            style={{ width: "100%", textAlign: "right", marginBottom: "0.5em" }}
           >
             {jobAdvert.jobTitle.title}
           </Item.Header>
           <Item.Meta
             style={{
               width: "100%",
-              textAlign: "left",
+              textAlign: "right",
               marginBottom: "0.5em",
             }}
           >
@@ -29,14 +31,14 @@ export default function JobAdvertItem({
           <Item.Description
             style={{
               width: "100%",
-              textAlign: "left",
+              textAlign: "right",
               marginBottom: "0.5em",
               height: "40%",
             }}
           >
             {jobAdvert.description}
-          </Item.Description>
-          <Item.Extra>
+          </Item.Description >
+          <Item.Extra style={{textAlign:"right"}} > 
             <Label icon="globe" content={jobAdvert.city.cityName} />
             <Label
               icon="money"
@@ -48,7 +50,7 @@ export default function JobAdvertItem({
               style={{ marginRight: "2.5em" }}
             />
 
-            {userType == "Employee" ? (
+            {userType === "Employee" ? (
               <Button.Group>
                 <Button
                   primary={jobAdvert.positionActive}
@@ -77,7 +79,7 @@ export default function JobAdvertItem({
             )}
           </Item.Extra>
         </Item.Content>
-      </Item>
+      </Item.Group>
     </div>
   );
 }

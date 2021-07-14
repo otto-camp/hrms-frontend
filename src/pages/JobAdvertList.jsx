@@ -31,7 +31,7 @@ export default function JobAdvertList() {
               <Table.Cell>{jobadvert.jobTitle.title}</Table.Cell>
               <Table.Cell>{jobadvert.vacantPositionNumber}</Table.Cell>
               <Table.Cell>{jobadvert.applicationStartDate}</Table.Cell>
-              <Table.Cell>{jobadvert.applicationDeadLine}</Table.Cell>
+              <Table.Cell>{jobadvert.applicationDeadline}</Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>

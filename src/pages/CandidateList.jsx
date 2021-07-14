@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import CandidateService from "../services/CandidateService";
-import { Table } from "semantic-ui-react";
+import { Card, Image } from "semantic-ui-react";
 
 export default function CandidateList() {
   const [candidates, setcandidates] = useState([]);
@@ -9,32 +9,33 @@ export default function CandidateList() {
     let candidateService = new CandidateService();
     candidateService
       .getCandidates()
-      .then(result => setcandidates(result.data.data));
+      .then((result) => setcandidates(result.data.data));
   }, []);
-  
-  return (
-    <div>
-      <Table celled color="blue" key="grey">
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell>Ad</Table.HeaderCell>
-            <Table.HeaderCell>Soyad</Table.HeaderCell>
-            <Table.HeaderCell>Mail Adresi</Table.HeaderCell>
-            <Table.HeaderCell>Doğum Tarihi</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
 
-        <Table.Body>
-          {candidates.map((candidate) => (
-            <Table.Row key={candidate.id}>
-              <Table.Cell>{candidate.firstName}</Table.Cell>
-              <Table.Cell>{candidate.lastName}</Table.Cell>
-              <Table.Cell>{candidate.email}</Table.Cell>
-              <Table.Cell>{candidate.birtDate}</Table.Cell>
-            </Table.Row>
-          ))}
-        </Table.Body>
-      </Table>
-    </div>
+  return (
+    <Card.Group >
+      {candidates.map((candidate) => (
+        <Card href="#candidate-detail">
+          {" "}
+          <Image
+            src="https://cdn.icon-icons.com/icons2/1674/PNG/512/person_110935.png"
+            size="tiny"
+            wrapped
+            ui={false}
+          />
+          <Card.Content key={candidate.id}>
+            <Card.Header>
+              {candidate.firstName} {candidate.lastName}
+            </Card.Header>
+            <Card.Meta>
+              <span className="date">{candidate.birthDate}</span>
+            </Card.Meta>
+            <Card.Description>
+              {candidate.email}
+            </Card.Description>
+          </Card.Content>
+        </Card>
+      ))}
+    </Card.Group>
   );
 }

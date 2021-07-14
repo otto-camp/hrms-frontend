@@ -16,7 +16,7 @@ import {
 
 export default function JobAdvertAdd({ triggerButton }) {
   const JobAdvertAddSchema = Yup.object().shape({
-    deadLine: Yup.date().nullable().required("Bu alanı doldurmalısınız!"),
+    applicationDeadline: Yup.date().required("Bu alanı doldurmalısınız!"),
     cityId: Yup.number().required("Bu alanı doldurmalısınız!"),
     description: Yup.string().required("Bu alanı doldurmalısınız!"),
     jobTitleId: Yup.number().required("Bu alanı doldurmalısınız!"),
@@ -32,7 +32,7 @@ export default function JobAdvertAdd({ triggerButton }) {
   });
   const formik = useFormik({
     initialValues: {
-      deadLine: "",
+      applicationDeadline: "",
       cityId: "",
       description: "",
       jobTitleId: "",
@@ -224,18 +224,18 @@ export default function JobAdvertAdd({ triggerButton }) {
               <Input
                 style={{ width: "100%" }}
                 type="date"
-                error={Boolean(formik.errors.deadLine)}
+                error={Boolean(formik.errors.applicationDeadline)}
                 onChange={(event, data) =>
-                  handleChangeSemantic(data.value, "deadLine")
+                  handleChangeSemantic(data.value, "applicationDeadline")
                 }
-                value={formik.values.deadLine}
+                value={formik.values.applicationapplicationDeadline}
                 onBlur={formik.handleBlur}
-                name="deadLine"
+                name="applicationDeadline"
                 placeholder="Son başvuru tarihi"
               />
-              {formik.errors.deadLine && formik.touched.deadLine && (
+              {formik.errors.applicationapplicationDeadline && formik.touched.applicationDeadline && (
                 <div className={"ui pointing red basic label"}>
-                  {formik.errors.deadLine}
+                  {formik.errors.applicationDeadline}
                 </div>
               )}
             </Grid.Column>
