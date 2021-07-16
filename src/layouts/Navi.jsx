@@ -1,15 +1,29 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Button, Icon, Input, Menu } from "semantic-ui-react";
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import { Input, Menu } from "semantic-ui-react";
+import SignedIn from "./SignedIn";
+import SignedOut from "./SignedOut";
 
 export default function Navi() {
+  const [isAuthenticated, setisAuthenticated] = useState(false);
+  const history = useHistory();
+
+  function handleSignOut(params) {
+    setisAuthenticated(false);
+    history.push("/");
+  }
+  function handleSignIn(params) {
+    setisAuthenticated(true);
+  }
+
   return (
     <div>
       <Menu size="small">
         <Link style={{ color: "#0A5D80" }} to="/">
           <h1
             className="logo"
-            style={{ fontSize: 35, paddingLeft: 10, paddingRight: 10 }} >
+            style={{ fontSize: 35, paddingLeft: 10, paddingRight: 10 }}
+          >
             HRMS
           </h1>
         </Link>
@@ -17,22 +31,11 @@ export default function Navi() {
           <Input action="Ara" placeholder="İlan Ara" />
         </Menu.Item>
         <Menu.Menu position="right">
-          <Menu.Item>
-            <Button.Group>
-              <Button animated="fade" color="facebook">
-                <Button.Content visible>Giriş Yap</Button.Content>
-                <Button.Content hidden>
-                  <Icon name="sign-in" />
-                </Button.Content>
-              </Button>
-              <Button animated="fade" color="instagram">
-                <Button.Content visible>Kayıt Ol</Button.Content>
-                <Button.Content hidden>
-                  <Icon name="key" />
-                </Button.Content>
-              </Button>
-            </Button.Group>
-          </Menu.Item>
+          {isAuthenticated ? (
+            <SignedIn signOut={handleSignOut} />
+          ) : (
+            <SignedOut signIn={handleSignIn} />
+          )}
         </Menu.Menu>
       </Menu>
     </div>

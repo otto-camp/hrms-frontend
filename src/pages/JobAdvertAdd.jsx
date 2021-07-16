@@ -5,6 +5,7 @@ import JobTitleService from "../services/JobTitleService";
 import JobTimeService from "../services/JobTimeService";
 import JobTypeService from "../services/JobTypeService";
 import CityService from "../services/CityService";
+import JobAdvertService from "../services/JobAdvertService";
 import {
   Button,
   Dropdown,
@@ -13,8 +14,12 @@ import {
   Form,
   Grid,
 } from "semantic-ui-react";
+import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 export default function JobAdvertAdd({ triggerButton }) {
+  let jobAdvertService = new JobAdvertService();
+
   const JobAdvertAddSchema = Yup.object().shape({
     applicationDeadline: Yup.date().required("Bu alanı doldurmalısınız!"),
     cityId: Yup.number().required("Bu alanı doldurmalısınız!"),
@@ -28,8 +33,13 @@ export default function JobAdvertAdd({ triggerButton }) {
     minSalary: Yup.number()
       .min(0, "0'dan az olamaz")
       .required("Bu alanı doldurmalısınız!"),
-    vacantPositionNumber: Yup.number().min(1,"En az 1 kişi almalısınız").required("Bu alanı doldurmalısınız!"),
+    vacantPositionNumber: Yup.number()
+      .min(1, "En az 1 kişi almalısınız")
+      .required("Bu alanı doldurmalısınız!"),
+    status: Yup.bool().required("Bu alanı doldurmalısınız!"),
+    isVerified: Yup.bool().required(),
   });
+
   const formik = useFormik({
     initialValues: {
       applicationDeadline: "",
@@ -40,14 +50,23 @@ export default function JobAdvertAdd({ triggerButton }) {
       jobTypeId: "",
       maxSalary: "",
       minSalary: "",
+      status: "",
+      isVerified: "",
       vacantPositionNumber: "",
     },
     validationSchema: JobAdvertAddSchema,
     onSubmit: (values) => {
       values.employerId = 52;
+      jobAdvertService
+        .add(values)
+        .then((result) => {
+          toast.success(result.data.message);
+        })
+        .catch((result) => {
+          toast.error(result.response.data.message);
+        });
     },
   });
-  //let jobAdvertService = new JobAdvertService();
 
   const [cities, setcities] = useState([]);
   const [jobTitles, setjobTitles] = useState([]);
@@ -198,7 +217,6 @@ export default function JobAdvertAdd({ triggerButton }) {
             </Grid.Column>
           </Grid>
         </Form.Field>
-
         <Form.Field>
           <Grid stackable>
             <Grid.Column width={8}>
@@ -233,15 +251,16 @@ export default function JobAdvertAdd({ triggerButton }) {
                 name="applicationDeadline"
                 placeholder="Son başvuru tarihi"
               />
-              {formik.errors.applicationapplicationDeadline && formik.touched.applicationDeadline && (
-                <div className={"ui pointing red basic label"}>
-                  {formik.errors.applicationDeadline}
-                </div>
-              )}
+              {formik.errors.applicationapplicationDeadline &&
+                formik.touched.applicationDeadline && (
+                  <div className={"ui pointing red basic label"}>
+                    {formik.errors.applicationDeadline}
+                  </div>
+                )}
             </Grid.Column>
           </Grid>
         </Form.Field>
-
+        <Form.Field></Form.Field>
         <Form.Field>
           <TextArea
             placeholder="Açıklama"
@@ -267,6 +286,7 @@ export default function JobAdvertAdd({ triggerButton }) {
           style={{ marginLeft: "20px" }}
         />
       </Form>
+      )
     </div>
   );
 }
