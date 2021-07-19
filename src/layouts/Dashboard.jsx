@@ -8,9 +8,10 @@ import Footer from "./Footer";
 import CandidateList from "../pages/CandidateList";
 import LogIn from "../pages/LogIn";
 import CandidateRegister from "../pages/Register/CandidateRegister";
+import Cv from "../pages/Cv";
 export default function Dashboard() {
   return (
-    <div>
+    <div >
       <Grid>
         <Grid.Row width={14}>
           <GridColumn >
@@ -20,6 +21,7 @@ export default function Dashboard() {
             <Route exact path="/confirmJob" component={ConfirmJobAdvert} />
             <Route exact path="/candidates" component={CandidateList}/>
             <Route exact path="/register/registerCandidate" component={CandidateRegister}/>
+            <Route exact path="/candidates/cv" component={Cv}/>
           </GridColumn>
         </Grid.Row>
         <Grid.Row>

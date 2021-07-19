@@ -1,0 +1,1 @@
+export const userItem = [{ loggedIn: false, user: { id: 0, userType: 0 } }]

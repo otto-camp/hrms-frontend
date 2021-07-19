@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Menu, Sidebar } from "semantic-ui-react";
+import { Menu, Sidebar, Table } from "semantic-ui-react";
 
 export default function Footer() {
   return (
@@ -8,19 +8,16 @@ export default function Footer() {
         as={Menu}
         animation="overlay"
         visible
-        inverted
         direction="bottom"
         width="wide"
       >
-        <Menu.Item as="a">
-          <Button color="brown">AnaSayfa</Button>
-        </Menu.Item>
-        <Menu.Item as="a">
-          <Button color="brown">Sosyal Medya</Button>
-        </Menu.Item>
-        <Menu.Item as="a">
-          <Button color="brown">Destek</Button>
-        </Menu.Item>
+        <Table basic>
+          <Table.Row>
+            <Table.HeaderCell>Hakkımızda</Table.HeaderCell>
+            <Table.HeaderCell>Sosyal Medya</Table.HeaderCell>
+            <Table.HeaderCell>İletişim</Table.HeaderCell>
+          </Table.Row>
+        </Table>
       </Sidebar>
     </div>
   );

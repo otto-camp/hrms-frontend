@@ -1,13 +1,12 @@
 import UserService from "../../services/UserService";
-import CandidateService from "../../services/CandidateService";
-import EmployerService from "../../services/EmployerService";
-import EmployeeService from "../../services/EmployeeService";
 import { toast } from "react-toastify";
 
 export const types = {
     ADD_USER: "ADD_USER",
     DELETE_USER: "DELETE_USER",
     GET_ALL: "GET_ALL",
+    USER_LOGIN: "USER_LOGIN",
+    USER_LOGOUT: "USER_LOGOUT",
 };
 export function addUser(user) {
     return { type: types.ADD_USER, payload: user }
@@ -15,19 +14,26 @@ export function addUser(user) {
 export function getAll(users) {
     return { type: types.GET_ALL, payload: users }
 }
+export function deleteUser(user) {
+    return { type: types.DELETE_USER, payload: user }
+}
 
-export function logout() {
+export function userLogin(user) {
     return {
-        type: types.DELETE_USER,
-        payload: {},
-    };
+        type: types.USER_LOGIN,
+        payload: user
+    }
+}
+
+export function userLogout(user) {
+    return {
+        type: types.USER_LOGOUT,
+        payload: user
+    }
 }
 
 
 const userService = new UserService();
-const candidateService = new CandidateService();
-const employerService = new EmployerService();
-const employeeService = new EmployeeService();
 export const displayToast = (success, message) => {
     if (success) {
         toast.success(message)

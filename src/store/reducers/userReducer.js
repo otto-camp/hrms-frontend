@@ -1,8 +1,8 @@
 import { types } from "../actions/userActions";
-import { user } from "../initialValues/user";
+import { userItem } from "../initialValues/userItem";
 
 const initialState = {
-  user: user,
+  userItem: userItem,
 };
 
 export default function userReducer(state = initialState, { type, payload }) {
@@ -19,6 +19,19 @@ export default function userReducer(state = initialState, { type, payload }) {
       return {
         ...state,
       }
+
+    case types.USER_LOGIN:
+      return {
+        ...state,
+        authItem: [...[{ loggedIn: true, user: payload }]]
+      }
+
+    case types.USER_LOGOUT:
+      return {
+        ...state,
+        authItem: [{ loggedIn: false, user: { id: 0, userType: 0 } }]
+      };
+
     default:
       return state;
   }

@@ -1,20 +1,13 @@
-import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import React from "react";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { Input, Menu } from "semantic-ui-react";
 import SignedIn from "./SignedIn";
 import SignedOut from "./SignedOut";
+import { userItem } from "../store/initialValues/userItem";
 
 export default function Navi() {
-  const [isAuthenticated, setisAuthenticated] = useState(false);
-  const history = useHistory();
-
-  function handleSignOut(params) {
-    setisAuthenticated(false);
-    history.push("/");
-  }
-  function handleSignIn(params) {
-    setisAuthenticated(true);
-  }
+  const { userItem } = useSelector(state => state.auth);
 
   return (
     <div>
@@ -31,11 +24,7 @@ export default function Navi() {
           <Input action="Ara" placeholder="İlan Ara" />
         </Menu.Item>
         <Menu.Menu position="right">
-          {isAuthenticated ? (
-            <SignedIn signOut={handleSignOut} />
-          ) : (
-            <SignedOut signIn={handleSignIn} />
-          )}
+          {userItem[0].loggedIn ? <SignedIn /> : <SignedOut />}
         </Menu.Menu>
       </Menu>
     </div>

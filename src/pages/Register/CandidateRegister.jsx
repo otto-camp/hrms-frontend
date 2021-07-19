@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import * as Yup from "yup";
 import { Formik, useFormik } from "formik";
 import AuthService from "../../services/AuthService";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router";
-import { Button, Form, FormGroup } from "semantic-ui-react";
+import { Form, FormGroup, Header, Icon } from "semantic-ui-react";
 import CustomInput from "../../components/CustomInput";
+import { Button } from "@material-ui/core";
 
 export default function CandidateRegister() {
   const registerSchema = Yup.object().shape({
@@ -23,31 +24,35 @@ export default function CandidateRegister() {
   const history = useHistory();
 
   const authService = new AuthService();
-  
-  const initialValues =  {
-      birthDate: "",
-      email: "",
-      firstName: "",
-      identityNumber: "",
-      lastName: "",
-      password: "",
-      passwordRep: "",
-    }
-    
-    const onSubmit =  (values) => {
-      authService
-        .registerCandidate(values)
-        .then((result) => {
-          toast.success(result.data.message);
-          history.push("/login");
-        })
-        .catch((result) => {
-          toast.error(result.response.data.message);
-        });
-    };
-  
+
+  const initialValues = {
+    birthDate: "",
+    email: "",
+    firstName: "",
+    identityNumber: "",
+    lastName: "",
+    password: "",
+    passwordRep: "",
+  };
+
+  const onSubmit = (values) => {
+    console.log("test");
+    authService
+      .registerCandidate(values)
+      .then((result) => {
+        toast.success(result.data.message);
+        history.push("/login");
+      })
+      .catch((result) => {
+        toast.error(result.response.data.message);
+      });
+  };
+
   return (
     <div>
+      <Header as="h1" color="pink" textAlign="center">
+        Kayıt Formu
+      </Header>
       <Formik
         initialValues={initialValues}
         validationSchema={registerSchema}
@@ -105,8 +110,13 @@ export default function CandidateRegister() {
             />
           </FormGroup>
           <br />
-          <Button type="submit" color="teal" fluid size="large">
-            Kayıt Ol
+          <Button
+            color="primary"
+            size="large"
+            variant="contained"
+            type="submit"
+          >
+            Kayıt ol
           </Button>
         </Form>
       </Formik>
