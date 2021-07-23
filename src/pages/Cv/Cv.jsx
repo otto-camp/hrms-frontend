@@ -1,14 +1,14 @@
 import { Link } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { Button, Icon, Table } from "semantic-ui-react";
-import CvService from "../services/CvService";
+import CvService from "../../services/CvService";
 
 export default function Cv() {
-  const [cvs, setcvs] = useState([]);
+  const [cvs, setCvs] = useState([]);
 
   useEffect(() => {
     let cvService = new CvService();
-    cvService.getAll().then((result) => setcvs(result.data.data));
+    cvService.getAll().then((result) => setCvs(result.data.data));
   }, []);
 
   return (
@@ -16,7 +16,6 @@ export default function Cv() {
       <Table celled color={"black"}>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell>İş Arayan</Table.HeaderCell>
             <Table.HeaderCell>Teknolojiler</Table.HeaderCell>
             <Table.HeaderCell>Diller</Table.HeaderCell>
             <Table.HeaderCell>Github</Table.HeaderCell>
@@ -28,9 +27,11 @@ export default function Cv() {
         <Table.Body>
           {cvs.map((cv) => (
             <Table.Row key={cv.id}>
-                <Table.Cell>
-                    {cv.candidate.firstName},{cv.candidate.lastName}
-                </Table.Cell>
+              <Table.Cell>{cv.skills}</Table.Cell>
+              <Table.Cell>{cv.programmingLanguage}</Table.Cell>
+              <Table.Cell>{cv.githubLink}</Table.Cell>
+              <Table.Cell>{cv.linkedinLink}</Table.Cell>
+              <Table.Cell>{cv.coverLetter}</Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>

@@ -8,7 +8,9 @@ import Footer from "./Footer";
 import CandidateList from "../pages/CandidateList";
 import LogIn from "../pages/LogIn";
 import CandidateRegister from "../pages/Register/CandidateRegister";
-import Cv from "../pages/Cv";
+import Cv from "../pages/Cv/Cv";
+import CvEducation from "../pages/Cv/CvEducation";
+import CvExperience from "../pages/Cv/CvExperience";
 export default function Dashboard() {
   return (
     <div >
@@ -22,6 +24,8 @@ export default function Dashboard() {
             <Route exact path="/candidates" component={CandidateList}/>
             <Route exact path="/register/registerCandidate" component={CandidateRegister}/>
             <Route exact path="/candidates/cv" component={Cv}/>
+            <Route exact path="/candidates/cvEducation" component={CvEducation}/>
+            <Route exact path="/candidates/cvExperience" component={CvExperience}/>
           </GridColumn>
         </Grid.Row>
         <Grid.Row>
