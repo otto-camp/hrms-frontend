@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-import { Button, Dropdown, Icon, Menu } from "semantic-ui-react";
+import { Dropdown, Icon, Menu } from "semantic-ui-react";
 import {userLogout} from "../store/actions/userActions"
 
 export default function SignedIn() {

@@ -6,11 +6,11 @@ export default function SignedOut() {
   return (
     <div>
       <Button.Group>
-        <Button as={Link} to={"/login"}>
+        <Button primary as={Link} to={"/login"}>
           Giriş yap
         </Button>
         <Icon name="circle outline" />
-        <Button positive as={Link} to={"/register"}>
+        <Button positive as={Link} to={"/register/register"}>
           Kaydol
         </Button>
       </Button.Group>

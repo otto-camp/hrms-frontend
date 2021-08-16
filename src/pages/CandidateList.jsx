@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import CandidateService from "../services/CandidateService";
-import { Card, Image } from "semantic-ui-react";
+import { Card } from "react-bootstrap";
 
 export default function CandidateList() {
   const [candidates, setcandidates] = useState([]);
@@ -13,29 +13,22 @@ export default function CandidateList() {
   }, []);
 
   return (
-    <Card.Group >
-      {candidates.map((candidate) => (
-        <Card href="#candidate-detail">
-          {" "}
-          <Image
-            src="https://cdn.icon-icons.com/icons2/1674/PNG/512/person_110935.png"
-            size="tiny"
-            wrapped
-            ui={false}
-          />
-          <Card.Content key={candidate.id}>
-            <Card.Header>
-              {candidate.firstName} {candidate.lastName}
-            </Card.Header>
-            <Card.Meta>
-              <span className="date">{candidate.birthDate}</span>
-            </Card.Meta>
-            <Card.Description>
-              {candidate.email}
-            </Card.Description>
-          </Card.Content>
-        </Card>
+    <Card fluid bg="light" >
+      {candidates.map((can) => (
+        <Card.Body key={can.id}>
+          <Card.Img variant="top" src={can.cvPhotos.photoUrl} />
+          <Card.Link href="/candidates/cv">
+            {can.firstName} {can.lastName}
+          </Card.Link>
+          <Card.Text>
+            {can.email}
+            <br />
+            {can.birthDate}
+          </Card.Text>
+          <Card.Link href="/candidates/cvEducation">Eğitim Bilgileri</Card.Link>
+          <Card.Link href="/candidates/cvExperience">İş Tecrübeleri</Card.Link>
+        </Card.Body>
       ))}
-    </Card.Group>
+    </Card>
   );
 }

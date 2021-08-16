@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from "react";
 import * as Yup from "yup";
-import { Formik, useFormik } from "formik";
+import { Formik } from "formik";
 import JobTitleService from "../services/JobTitleService";
 import JobTimeService from "../services/JobTimeService";
 import JobTypeService from "../services/JobTypeService";
 import CityService from "../services/CityService";
 import JobAdvertService from "../services/JobAdvertService";
-import { Form, Grid, Header, Segment, FormGroup } from "semantic-ui-react";
+import { Form, Header, FormGroup, TextArea } from "semantic-ui-react";
 import { Button } from "@material-ui/core";
 import { toast } from "react-toastify";
 import CustomDropdown from "../components/CustomDropdown";
 import CustomInput from "../components/CustomInput";
-import CustomText from "../components/CustomText";
+import { useSelector } from "react-redux";
 
 export default function JobAdvertAdd({ triggerButton }) {
+  const user = useSelector((state) => state.user);
+
   let jobAdvertService = new JobAdvertService();
 
   const JobAdvertAddSchema = Yup.object().shape({
@@ -51,7 +53,7 @@ export default function JobAdvertAdd({ triggerButton }) {
   };
 
   const onSubmit = (values) => {
-    values.employerId = 52;
+    values.employerId = user.userId;
     console.log("test");
     jobAdvertService
       .add(values)
@@ -108,107 +110,93 @@ export default function JobAdvertAdd({ triggerButton }) {
 
   return (
     <div>
-      <Grid style={{ height: "80vh" }} verticalAlign="middle">
-        <Grid.Column style={{ maxWidth: 800 }}>
-          <Header as="h1" color="teal" textAlign="center">
-            İş İlanı Oluştur
-          </Header>
+      <Header as="h1" color="pink" textAlign="center">
+        İş İlanı Oluştur
+      </Header>
 
-          <Segment stacked>
-            <Formik
-              initialValues={initialValues}
-              validationSchema={JobAdvertAddSchema}
-              onSubmit={onSubmit}
-            >
-              <Form className="ui form">
-                <CustomDropdown
-                  label="İş Pozisyonu *"
-                  name="jobTitles"
-                  placeholder="İş Pozisyonu *"
-                  options={jobTitleOption}
-                />
-                <FormGroup widths="equal">
-                  <CustomDropdown
-                    label="Çalışma zamanı"
-                    name="jobTimes"
-                    placeholder="Çalışma zamanı"
-                    options={jobTimeOption}
-                  />
-                  <CustomInput
-                    label="Açık Pozisyon Sayısı *"
-                    name="vacantPositionNumber"
-                    placeholder="Açık Pozisyon Sayısı *"
-                    icon="briefcase"
-                    iconPosition="left"
-                  />
-                </FormGroup>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={JobAdvertAddSchema}
+        onSubmit={onSubmit}
+      >
+        <Form className="ui form">
+          <CustomDropdown
+            label="İş Pozisyonu *"
+            name="jobTitles"
+            placeholder="İş Pozisyonu *"
+            options={jobTitleOption}
+          />
+          <FormGroup widths="equal">
+            <CustomDropdown
+              label="Çalışma zamanı"
+              name="jobTimes"
+              placeholder="Çalışma zamanı"
+              options={jobTimeOption}
+            />
+            <CustomInput
+              label="Açık Pozisyon Sayısı *"
+              name="vacantPositionNumber"
+              placeholder="Açık Pozisyon Sayısı *"
+              icon="briefcase"
+              iconPosition="left"
+            />
+          </FormGroup>
 
-                <FormGroup widths="equal">
-                  <CustomDropdown
-                    label="Şehir *"
-                    name="city"
-                    placeholder="Şehir *"
-                    options={cityOption}
-                  />
-                  <CustomDropdown
-                    label="Çalışma Şekli *"
-                    name="jobType"
-                    placeholder="Çalışma Şekli *"
-                    options={jobTypeOption}
-                  />
-                </FormGroup>
+          <FormGroup widths="equal">
+            <CustomDropdown
+              label="Şehir *"
+              name="city"
+              placeholder="Şehir *"
+              options={cityOption}
+            />
+            <CustomDropdown
+              label="Çalışma Şekli *"
+              name="jobType"
+              placeholder="Çalışma Şekli *"
+              options={jobTypeOption}
+            />
+          </FormGroup>
 
-                <FormGroup widths="equal">
-                  <CustomInput
-                    label="Min. Maaş"
-                    name="minSalary"
-                    placeholder="Min. Maaş"
-                    icon="money"
-                    iconPosition="left"
-                    type="number"
-                  />
-                  <CustomInput
-                    label="Maks. Maaş"
-                    name="maxSalary"
-                    placeholder="Maks. Maaş"
-                    icon="money"
-                    iconPosition="left"
-                    type="number"
-                  />
-                </FormGroup>
+          <FormGroup widths="equal">
+            <CustomInput
+              label="Min. Maaş"
+              name="minSalary"
+              placeholder="Min. Maaş"
+              icon="money"
+              iconPosition="left"
+              type="number"
+            />
+            <CustomInput
+              label="Maks. Maaş"
+              name="maxSalary"
+              placeholder="Maks. Maaş"
+              icon="money"
+              iconPosition="left"
+              type="number"
+            />
+          </FormGroup>
 
-                <CustomInput
-                  label="Son Başvuru Tarihi *"
-                  name="deadline"
-                  placeholder="Son Başvuru Tarihi *"
-                  icon="calendar alternate"
-                  iconPosition="left"
-                  type="date"
-                />
+          <CustomInput
+            label="Son Başvuru Tarihi *"
+            name="applicationDeadline"
+            placeholder="Son Başvuru Tarihi *"
+            icon="calendar alternate"
+            iconPosition="left"
+            type="date"
+          />
 
-                <CustomText
-                  label="Açıklama "
-                  name="description"
-                  placeholder="Açıklama "
-                  icon="file text"
-                  iconPosition="left"
-                />
-
-                <br />
-                <Button
-                  color="primary"
-                  size="large"
-                  variant="contained"
-                  type="submit"
-                >
-                  Giriş yap
-                </Button>
-              </Form>
-            </Formik>
-          </Segment>
-        </Grid.Column>
-      </Grid>
-      )
+          <TextArea name="description" placeholder="Açıklama " />
+          <Button
+            color="primary"
+            size="large"
+            variant="contained"
+            type="submit"
+            style={{ marginTop: "1em" }}
+          >
+            İlan Ekle
+          </Button>
+        </Form>
+      </Formik>
     </div>
   );
 }

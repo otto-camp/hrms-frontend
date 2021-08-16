@@ -1,11 +1,8 @@
 import { applyMiddleware, createStore } from "redux";
-import { persistStore } from "redux-persist";
 import thunkMiddleware from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
-
 import rootReducer from "./rootReducer";
-
-import { loadState, saveState } from "../localStorage";
+import { loadState } from "../localStorage";
 
 const composedEnhancer = composeWithDevTools(applyMiddleware(thunkMiddleware))
 

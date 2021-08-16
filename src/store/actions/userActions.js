@@ -45,11 +45,11 @@ export const displayToast = (success, message) => {
 
 export const login = (values) => async (dispatch) => {
     return await userService.login(values).then((response) => {
-        displayToast(response.data.success, response.data.message);
         if (response.data.success) {
-            dispatch(addUser(response.data.data))
+            dispatch(userLogin(response.data.data))
             return response.data.data
         }
+        displayToast(response.data.success, response.data.message);
         return null
     });
 };

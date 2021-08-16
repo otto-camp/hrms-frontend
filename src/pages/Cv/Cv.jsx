@@ -1,6 +1,5 @@
-import { Link } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
-import { Button, Icon, Table } from "semantic-ui-react";
+import { Table } from "semantic-ui-react";
 import CvService from "../../services/CvService";
 
 export default function Cv() {
@@ -13,7 +12,7 @@ export default function Cv() {
 
   return (
     <div>
-      <Table celled color={"black"}>
+      <Table celled structured>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>Teknolojiler</Table.HeaderCell>

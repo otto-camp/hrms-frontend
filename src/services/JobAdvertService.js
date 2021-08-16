@@ -9,6 +9,6 @@ export default class JobAdvertService {
         return axios.post("http://localhost:8080/api/job-adverts/add",values);
     }
     confirmJobAdvert(id,isVerified){
-        return axios.post(`http://localhost:8080/api/job-adverts/confirmatinJobAdvert?id=${id}&isVerified=${isVerified}`)
+        return axios.put(`http://localhost:8080/api/job-adverts/confirmatinJobAdvert?id=${id}&isVerified=${isVerified}`)
     }
 }

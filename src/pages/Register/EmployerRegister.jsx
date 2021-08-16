@@ -1,44 +1,37 @@
-import React from "react";
-import * as Yup from "yup";
 import { Formik } from "formik";
-import AuthService from "../../services/AuthService";
-import { toast } from "react-toastify";
+import React from "react";
 import { useHistory } from "react-router";
+import { toast } from "react-toastify";
 import { Form, FormGroup, Header } from "semantic-ui-react";
+import * as Yup from "yup";
+import AuthService from "../../services/AuthService";
 import CustomInput from "../../components/CustomInput";
 import { Button } from "@material-ui/core";
 
-export default function CandidateRegister() {
+export default function EmployerRegister() {
   const registerSchema = Yup.object().shape({
-    birthDate: Yup.date().required("Bu alanı doldurmalısınız!"),
+    companyName: Yup.string().required("Bu alanı doldurmalısınız!"),
     email: Yup.string().required("Bu alanı doldurmalısınız!"),
-    firstName: Yup.string().required("Bu alanı doldurmalısınız!"),
-    identityNumber: Yup.string()
-      .min(11)
-      .max(11)
-      .required("Bu alanı doldurmalısınız!"),
-    lastName: Yup.string().required("Bu alanı doldurmalısınız!"),
     password: Yup.string().required("Bu alanı doldurmalısınız!"),
     passwordRep: Yup.string().required("Bu alanı doldurmalısınız!"),
+    phoneNumber: Yup.string().required("Bu alanı doldurmalısınız!"),
+    website: Yup.string().required("Bu alanı doldurmalısınız!"),
   });
-  const history = useHistory();
-
-  const authService = new AuthService();
-
   const initialValues = {
-    birthDate: "",
+    companyName: "",
     email: "",
-    firstName: "",
-    identityNumber: "",
-    lastName: "",
     password: "",
     passwordRep: "",
+    phoneNumber: "",
+    website: "",
   };
+  const history = useHistory();
+  const authService = new AuthService();
 
   const onSubmit = (values) => {
     console.log("test");
     authService
-      .registerCandidate(values)
+      .registerEmployer(values)
       .then((result) => {
         toast.success(result.data.message);
         history.push("/login");
@@ -59,39 +52,29 @@ export default function CandidateRegister() {
         onSubmit={onSubmit}
       >
         <Form className="ui form">
-          <FormGroup widths="equal">
-            <CustomInput
-              name="firstName"
-              placeholder="Ad"
-              icon="user"
-              iconPosition="left"
-            />
-            <CustomInput
-              name="lastName"
-              placeholder="Soyad"
-              icon="user"
-              iconPosition="left"
-            />
-          </FormGroup>
           <CustomInput
-            name="identityNumber"
-            placeholder="TC Kimlik No"
-            icon="id card"
+            name="companyName"
+            placeholder="Şirket Adı"
+            icon="building"
             iconPosition="left"
           />
           <CustomInput
-            name="birthDate"
-            placeholder={"Doğum Yılınız"}
-            icon="birthday"
+            name="website"
+            placeholder="Website"
+            icon="terminal"
             iconPosition="left"
-            type="date"
           />
           <CustomInput
             name="email"
-            placeholder="E-Posta"
-            icon="mail"
+            placeholder="Eposta"
+            icon="at"
             iconPosition="left"
-            type="email"
+          />
+          <CustomInput
+            name="phoneNumber"
+            placeholder="Telefon Numarası"
+            icon="phone"
+            iconPosition="left"
           />
           <FormGroup widths="equal">
             <CustomInput
@@ -99,14 +82,12 @@ export default function CandidateRegister() {
               placeholder="Şifre"
               icon="lock"
               iconPosition="left"
-              type="password"
             />
             <CustomInput
               name="passwordRep"
               placeholder="Şifre Tekrarı"
               icon="lock"
               iconPosition="left"
-              type="password"
             />
           </FormGroup>
           <br />

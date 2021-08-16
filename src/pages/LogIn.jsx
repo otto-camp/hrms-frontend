@@ -1,7 +1,7 @@
 import { Form, Formik } from "formik";
 import React from "react";
 import * as Yup from "yup";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { Header, Message, Segment } from "semantic-ui-react";
 import CustomInput from "../components/CustomInput";
@@ -75,6 +75,7 @@ export default function LogIn() {
               size="large"
               variant="contained"
               type="submit"
+              style={{marginTop:"0.5em"}}
             >
               Giriş yap
             </Button>
@@ -83,7 +84,7 @@ export default function LogIn() {
         <Message info>
           Kayıtlı değil misin?{" "}
           <b>
-            <Link to={"/register/registerCandidate"}>Şimdi Kaydol</Link>
+            <Link to={"/register/register"}>Şimdi Kaydol</Link>
           </b>
         </Message>
       </Segment>
